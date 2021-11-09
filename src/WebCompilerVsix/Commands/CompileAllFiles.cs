@@ -53,6 +53,7 @@ namespace WebCompilerVsix.Commands
 
         private void CompileSolution(object sender, EventArgs e)
         {
+            TableDataSource.Instance.CleanAllErrors();            
             var projects = ProjectHelpers.GetAllProjects();
 
             foreach (Project project in projects)

@@ -48,6 +48,9 @@ namespace WebCompilerTest
             var result = _processor.Process("../../artifacts/scssconfigError.json");
             Assert.IsTrue(result.Count() == 1);
             Assert.IsTrue(result.ElementAt(0).HasErrors);
+
+            var error = result.First().Errors.First();
+            Assert.IsTrue(error.LineNumber == 4);
         }
 
         [TestMethod, TestCategory("SCSS")]

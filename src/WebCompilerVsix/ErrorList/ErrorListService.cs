@@ -9,7 +9,7 @@ namespace WebCompilerVsix
         public static void ProcessCompilerResults(IEnumerable<CompilerResult> results)
         {
             var errors = results.Where(r => r.HasErrors).SelectMany(r => r.Errors);
-            var clean = results.Where(r => !r.HasErrors).Select(r => r.FileName);
+            TableDataSource.Instance.CleanAllErrors();
 
             if (errors.Any())
             {
@@ -33,7 +33,7 @@ namespace WebCompilerVsix
                 WebCompilerInitPackage.StatusText($"Compiled successfully");
             }
 
-            TableDataSource.Instance.CleanErrors(clean);
+            //TableDataSource.Instance.CleanErrors(clean);
         }
     }
 }

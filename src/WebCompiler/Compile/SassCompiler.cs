@@ -48,14 +48,14 @@ namespace WebCompiler
 
                 if (_error.Length > 0)
                 {
-                    JObject json = JObject.Parse(_error);
+                    var lineColumn = Regex.Match(_error, @"[0-9]+:[0-9]+").Value.Split(':');
 
                     CompilerError ce = new CompilerError
                     {
-                        FileName = info.FullName,
-                        Message = json["message"].ToString(),
-                        ColumnNumber = int.Parse(json["column"].ToString()),
-                        LineNumber = int.Parse(json["line"].ToString()),
+                        FileName = Regex.Match(_error, @".*\.scss").Value.Trim(),
+                        Message = Regex.Match(_error, @"(.|\n)*╵").Value.Trim(),
+                        ColumnNumber = int.Parse(lineColumn[1]),
+                        LineNumber = int.Parse(lineColumn[0]),
                         IsWarning = !string.IsNullOrEmpty(_output)
                     };
 
